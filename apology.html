@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Özür Dilerim</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
+        #image {
+            width: 500px;
+            height: auto;
+            margin: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        .button-container {
+            position: relative;
+            height: 50px;
+        }
+        button {
+            font-size: 18px;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            position: absolute;
+            transition: left 0.3s ease, top 0.3s ease;
+        }
+        #yes {
+            background-color: green;
+            color: white;
+            left: 40%;
+        }
+        #no {
+            background-color: red;
+            color: white;
+        }
+        .confetti {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            opacity: 0.8;
+            border-radius: 50%;
+            animation: fall linear infinite;
+        }
+        @keyframes fall {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(100vh); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <h2 id="text">Seni üzdüğüm için özür dilerim. Lütfen barışalım güzelim.</h2>
+    <img id="image" src="https://i.pinimg.com/474x/b2/03/e6/b203e6c395768ff3ec54bc6edcb74573.jpg" alt="Apology Image">
+    <div class="button-container" id="buttons">
+        <button id="yes" onclick="accept()">Evet</button>
+        <button id="no" onmouseover="runAway()">Hayır</button>
+    </div>
+
+    <script>
+        function accept() {
+            document.getElementById('image').src = "https://gifdb.com/images/high/happy-cat-you-re-here-excited-jump-414bnrj063t5wry2.webp";
+            document.getElementById('buttons').style.display = 'none';
+            document.getElementById('text').innerHTML = "❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️ Seni Seviyorum ❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️";
+            startConfetti();
+        }
+
+        function runAway() {
+            let noButton = document.getElementById('no');
+            let container = document.getElementById('buttons');
+            let image = document.getElementById('image');
+            let rect = image.getBoundingClientRect();
+            let minX = rect.left;
+            let maxX = rect.right - noButton.offsetWidth;
+            let minY = rect.top - 100;
+            let maxY = rect.bottom + 20;
+            let x = Math.random() * (maxX - minX) + minX;
+            let y = Math.random() * (maxY - minY) + minY;
+            noButton.style.left = `${x}px`;
+            noButton.style.top = `${y}px`;
+        }
+
+        function startConfetti() {
+            for (let i = 0; i < 150; i++) {
+                let confetti = document.createElement("div");
+                confetti.classList.add("confetti");
+                confetti.style.left = `${Math.random() * 100}vw`;
+                confetti.style.top = `-10px`;
+                confetti.style.backgroundColor = getRandomColor();
+                confetti.style.animationDuration = `${Math.random() * 4 + 2}s`;
+                confetti.style.width = `${Math.random() * 15 + 5}px`;
+                confetti.style.height = confetti.style.width;
+                document.body.appendChild(confetti);
+                setTimeout(() => confetti.remove(), 6000);
+            }
+        }
+
+        function getRandomColor() {
+            const colors = ['red', 'blue', 'green', 'yellow', 'purple', 'orange', 'pink', 'cyan', 'lime', 'gold', 'silver', 'white'];
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
+    </script>
+</body>
+</html>
